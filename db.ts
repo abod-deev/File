@@ -37,6 +37,25 @@ export const saveDB = (state: AppState) => {
   localStorage.setItem(DB_KEY, JSON.stringify(state));
 };
 
+// وظائف لإدارة البيانات الخام (للتصدير والاستيراد)
+export const getRawDB = (): string => {
+  return JSON.stringify(loadDB(), null, 2);
+};
+
+export const importRawDB = (jsonString: string): boolean => {
+  try {
+    const data = JSON.parse(jsonString);
+    // تحقق بسيط من الهيكل
+    if (data.users && data.faculties && data.files) {
+      localStorage.setItem(DB_KEY, jsonString);
+      return true;
+    }
+    return false;
+  } catch (e) {
+    return false;
+  }
+};
+
 export const addUser = (user: User) => {
   const db = loadDB();
   db.users.push(user);

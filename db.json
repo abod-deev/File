@@ -1,0 +1,17 @@
+
+{
+  "users": [
+    { "id": "1", "name": "المدير العام", "username": "abod", "role": "admin", "password": "123" }
+  ],
+  "faculties": [
+    { "id": "f1", "name": "كلية الهندسة" },
+    { "id": "f2", "name": "كلية الطب" }
+  ],
+  "majors": [
+    { "id": "m1", "facultyId": "f1", "name": "الهندسة المدنية" }
+  ],
+  "subjects": [
+    { "id": "s1", "majorId": "m1", "name": "ميكانيكا التربة" }
+  ],
+  "files": []
+}
