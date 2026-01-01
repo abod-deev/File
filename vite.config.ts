@@ -6,7 +6,7 @@ export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, '.', '');
 
   return {
-    base: "/File/", // 🔥 اسم الريبو في GitHub (مهم جدًا)
+    base: "/File/", // ✅ الاسم الصحيح للريبو
 
     server: {
       port: 3000,
