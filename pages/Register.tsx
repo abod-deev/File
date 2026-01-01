@@ -17,7 +17,7 @@ const Register: React.FC<RegisterProps> = ({ onRegister, users }) => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (users.some(u => u.username === formData.username)) {
-      setError('اسم المستخدم موجود مسبقاً');
+      setError('اسم المستخدم هذا مستخدم بالفعل، اختر اسماً آخر');
       return;
     }
     const newUser: User = {
@@ -31,62 +31,62 @@ const Register: React.FC<RegisterProps> = ({ onRegister, users }) => {
 
   return (
     <div className="max-w-md mx-auto mt-20 px-4">
-      <div className="bg-white p-8 rounded-3xl shadow-xl shadow-gray-200/50 border border-gray-100">
-        <div className="text-center mb-8">
-          <div className="w-16 h-16 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">
-            <UserPlus className="w-8 h-8" />
+      <div className="bg-white p-10 rounded-[2.5rem] shadow-2xl shadow-gray-200 border border-gray-100">
+        <div className="text-center mb-10">
+          <div className="w-20 h-20 bg-emerald-50 text-emerald-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-xl shadow-emerald-50">
+            <UserPlus className="w-10 h-10" />
           </div>
-          <h2 className="text-2xl font-bold text-gray-900">إنشاء حساب جديد</h2>
-          <p className="text-gray-500 mt-2">انضم إلينا الآن للوصول لكافة الملفات</p>
+          <h2 className="text-3xl font-extrabold text-gray-900">انضم إلينا</h2>
+          <p className="text-gray-500 mt-3">أنشئ حسابك للبدء في تحميل المحتوى</p>
         </div>
 
         {error && (
-          <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-xl flex items-center gap-2 text-sm">
-            <AlertCircle className="w-5 h-5" />
+          <div className="mb-6 p-4 bg-red-50 text-red-600 rounded-2xl flex items-center gap-3 text-sm font-medium">
+            <AlertCircle className="w-5 h-5 flex-shrink-0" />
             {error}
           </div>
         )}
 
         <form onSubmit={handleSubmit} className="space-y-5">
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">الاسم الكامل</label>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-gray-700 mr-1">الاسم الكامل</label>
             <div className="relative">
-              <UserIcon className="absolute right-3 top-3 w-5 h-5 text-gray-400" />
+              <UserIcon className="absolute right-4 top-4 w-5 h-5 text-gray-400" />
               <input 
                 type="text" 
                 value={formData.name}
                 onChange={e => setFormData({...formData, name: e.target.value})}
-                className="w-full pr-10 pl-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition"
-                placeholder="أدخل اسمك الكامل"
+                className="w-full pr-12 pl-4 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-indigo-500 outline-none transition-all"
+                placeholder="مثال: أحمد محمد"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">اسم المستخدم</label>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-gray-700 mr-1">اسم المستخدم</label>
             <div className="relative">
-              <Mail className="absolute right-3 top-3 w-5 h-5 text-gray-400" />
+              <Mail className="absolute right-4 top-4 w-5 h-5 text-gray-400" />
               <input 
                 type="text" 
                 value={formData.username}
                 onChange={e => setFormData({...formData, username: e.target.value})}
-                className="w-full pr-10 pl-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                className="w-full pr-12 pl-4 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-indigo-500 outline-none transition-all"
                 placeholder="اختر اسم مستخدم فريد"
                 required
               />
             </div>
           </div>
 
-          <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">كلمة المرور</label>
+          <div className="space-y-2">
+            <label className="text-sm font-bold text-gray-700 mr-1">كلمة المرور</label>
             <div className="relative">
-              <Lock className="absolute right-3 top-3 w-5 h-5 text-gray-400" />
+              <Lock className="absolute right-4 top-4 w-5 h-5 text-gray-400" />
               <input 
                 type="password" 
                 value={formData.password}
                 onChange={e => setFormData({...formData, password: e.target.value})}
-                className="w-full pr-10 pl-4 py-2.5 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 outline-none transition"
+                className="w-full pr-12 pl-4 py-4 bg-gray-50 border border-transparent rounded-2xl focus:bg-white focus:border-indigo-500 outline-none transition-all"
                 placeholder="••••••••"
                 required
               />
@@ -95,14 +95,14 @@ const Register: React.FC<RegisterProps> = ({ onRegister, users }) => {
 
           <button 
             type="submit"
-            className="w-full py-3 bg-indigo-600 text-white font-bold rounded-xl shadow-lg shadow-indigo-100 hover:bg-indigo-700 active:scale-95 transition"
+            className="w-full py-4 bg-indigo-600 text-white font-bold text-lg rounded-2xl shadow-xl shadow-indigo-100 hover:bg-indigo-700 active:scale-[0.98] transition-all"
           >
-            تسجيل
+            إنشاء الحساب
           </button>
         </form>
 
-        <div className="mt-8 text-center text-sm text-gray-500">
-          لديك حساب بالفعل؟ <Link to="/login" className="text-indigo-600 font-bold hover:underline">تسجيل الدخول</Link>
+        <div className="mt-10 text-center text-sm text-gray-500">
+          لديك حساب بالفعل؟ <Link to="/login" className="text-indigo-600 font-bold hover:underline">سجل دخولك</Link>
         </div>
       </div>
     </div>

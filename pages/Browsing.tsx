@@ -24,19 +24,17 @@ const Browsing: React.FC<BrowsingProps> = ({ isLoggedIn }) => {
     return (
       <div className="py-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <Breadcrumbs faculty={faculty} major={major} subject={subject} />
-        
         <div className="mt-8">
           <h2 className="text-2xl font-bold text-gray-800 mb-6 flex items-center gap-2">
             <FileText className="w-6 h-6 text-indigo-600" />
-            الملفات الدراسية لـ {subject?.name}
+            ملفات: {subject?.name}
           </h2>
-
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {files.length > 0 ? files.map(file => (
               <FileCard key={file.id} file={file} isLoggedIn={isLoggedIn} />
             )) : (
-              <div className="col-span-full py-12 text-center bg-white rounded-2xl border border-dashed border-gray-200">
-                <p className="text-gray-500 italic">لا توجد ملفات مرفوعة لهذه المادة حالياً.</p>
+              <div className="col-span-full py-12 text-center bg-white rounded-3xl border border-dashed border-gray-200">
+                <p className="text-gray-500 italic">لا توجد ملفات متوفرة حالياً لهذه المادة.</p>
               </div>
             )}
           </div>
@@ -93,20 +91,20 @@ const Browsing: React.FC<BrowsingProps> = ({ isLoggedIn }) => {
 };
 
 const Breadcrumbs: React.FC<{ faculty?: Faculty; major?: Major; subject?: Subject }> = ({ faculty, major, subject }) => (
-  <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6 bg-white p-3 px-5 rounded-xl border border-gray-100 overflow-x-auto whitespace-nowrap">
-    <Link to="/" className="hover:text-indigo-600">الرئيسية</Link>
-    <ChevronLeft className="w-4 h-4" />
-    <Link to={`/faculty/${faculty?.id}`} className={`hover:text-indigo-600 ${!major ? 'font-bold text-gray-900' : ''}`}>{faculty?.name}</Link>
+  <nav className="flex items-center gap-2 text-sm text-gray-500 mb-6 bg-white p-4 rounded-2xl border border-gray-100 overflow-x-auto whitespace-nowrap scrollbar-hide">
+    <Link to="/" className="hover:text-indigo-600 transition">الرئيسية</Link>
+    <ChevronLeft className="w-4 h-4 flex-shrink-0" />
+    <Link to={`/faculty/${faculty?.id}`} className={`hover:text-indigo-600 ${!major ? 'font-bold text-indigo-700' : ''}`}>{faculty?.name}</Link>
     {major && (
       <>
-        <ChevronLeft className="w-4 h-4" />
-        <Link to={`/faculty/${faculty?.id}/major/${major.id}`} className={`hover:text-indigo-600 ${!subject ? 'font-bold text-gray-900' : ''}`}>{major.name}</Link>
+        <ChevronLeft className="w-4 h-4 flex-shrink-0" />
+        <Link to={`/faculty/${faculty?.id}/major/${major.id}`} className={`hover:text-indigo-600 ${!subject ? 'font-bold text-indigo-700' : ''}`}>{major.name}</Link>
       </>
     )}
     {subject && (
       <>
-        <ChevronLeft className="w-4 h-4" />
-        <span className="font-bold text-gray-900">{subject.name}</span>
+        <ChevronLeft className="w-4 h-4 flex-shrink-0" />
+        <span className="font-bold text-indigo-700">{subject.name}</span>
       </>
     )}
   </nav>
@@ -115,15 +113,14 @@ const Breadcrumbs: React.FC<{ faculty?: Faculty; major?: Major; subject?: Subjec
 const FileCard: React.FC<{ file: FileItem; isLoggedIn: boolean }> = ({ file, isLoggedIn }) => {
   const handleOpenLink = () => {
     if (!isLoggedIn) return;
-    // فتح الرابط في نافذة جديدة
     window.open(file.url, '_blank');
   };
 
   return (
-    <div className="bg-white rounded-2xl p-5 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-md transition-all group">
+    <div className="bg-white rounded-3xl p-6 border border-gray-100 shadow-sm flex flex-col justify-between hover:shadow-xl transition-all duration-300 group">
       <div>
         <div className="flex items-center justify-between mb-4">
-          <span className={`px-2.5 py-1 rounded-lg text-xs font-bold ${
+          <span className={`px-3 py-1 rounded-xl text-xs font-bold ${
             file.category === 'كتاب' ? 'bg-blue-50 text-blue-600' :
             file.category === 'ملخص' ? 'bg-green-50 text-green-600' :
             file.category === 'ملزمة' ? 'bg-purple-50 text-purple-600' :
@@ -131,30 +128,28 @@ const FileCard: React.FC<{ file: FileItem; isLoggedIn: boolean }> = ({ file, isL
           }`}>
             {file.category}
           </span>
-          <span className="text-[10px] text-gray-400 font-bold flex items-center gap-1">
-            <ExternalLink className="w-3 h-3" /> رابط خارجي
-          </span>
-        </div>
-        <h4 className="font-bold text-gray-800 mb-3 text-lg leading-snug group-hover:text-indigo-600 transition">{file.name}</h4>
-        <div className="flex items-center gap-3 text-xs text-gray-400 mb-5">
-          <div className="flex items-center gap-1">
-            <Clock className="w-3.5 h-3.5" />
-            <span>{new Date(file.uploadedAt).toLocaleDateString('ar-EG')}</span>
+          <div className="flex items-center gap-1 text-[10px] text-gray-400 font-bold uppercase tracking-wider">
+            <ExternalLink className="w-3 h-3" /> رابط جوجل درايف
           </div>
+        </div>
+        <h4 className="font-bold text-gray-900 mb-3 text-lg group-hover:text-indigo-600 transition-colors">{file.name}</h4>
+        <div className="flex items-center gap-2 text-xs text-gray-400 mb-6">
+          <Clock className="w-3.5 h-3.5" />
+          <span>تاريخ الإضافة: {new Date(file.uploadedAt).toLocaleDateString('ar-EG')}</span>
         </div>
       </div>
 
       <button
         onClick={handleOpenLink}
         disabled={!isLoggedIn}
-        className={`w-full flex items-center justify-center gap-2 py-3 rounded-xl font-bold transition-all ${
+        className={`w-full flex items-center justify-center gap-2 py-3.5 rounded-2xl font-bold transition-all shadow-lg ${
           isLoggedIn 
-            ? 'bg-indigo-600 text-white hover:bg-indigo-700 active:scale-95 shadow-lg shadow-indigo-100' 
-            : 'bg-gray-100 text-gray-400 cursor-not-allowed'
+            ? 'bg-indigo-600 text-white hover:bg-indigo-700 shadow-indigo-100 hover:shadow-indigo-200 active:scale-[0.98]' 
+            : 'bg-gray-100 text-gray-400 cursor-not-allowed shadow-none'
         }`}
       >
         <ExternalLink className="w-5 h-5" />
-        {isLoggedIn ? 'فتح وتحميل الملف' : 'سجل الدخول للتحميل'}
+        {isLoggedIn ? 'فتح وتحميل الملف' : 'سجل دخول للتحميل'}
       </button>
     </div>
   );
