@@ -19,15 +19,15 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build
+      - name: Build project
         run: npm run build
 
       - name: Setup Git identity
         run: |
-          git config --global user.name "abod-deev"
-          git config --global user.email "abod-deev@gmil.com"
+          git config --global user.name "Deploy Bot"
+          git config --global user.email "deploy@example.com"
 
       - name: Deploy to GitHub Pages
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx gh-pages -d dist -r https://x-access-token:${GH_TOKEN}@github.com/abod-deev/File.git
+        run: npx gh-pages -d dist -r https://x-access-token:${GH_TOKEN}@github.com/abod-deev/F.git
