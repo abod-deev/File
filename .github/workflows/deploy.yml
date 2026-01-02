@@ -30,4 +30,4 @@ jobs:
       - name: Deploy to GitHub Pages
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: npx gh-pages -d dist -r https://x-access-token:${GH_TOKEN}@github.com/abod-deev/F.git
+        run: npx gh-pages -d dist -r https://x-access-token:${GH_TOKEN}@github.com/abod-deev/File..git
