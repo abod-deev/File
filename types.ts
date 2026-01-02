@@ -33,10 +33,10 @@ export interface FileItem {
   name: string;
   subjectId: string;
   category: FileCategory;
-  type: string;
+  type: string; // pdf, docx, image
   size: string;
   uploadedAt: string;
-  url: string; 
+  url: string; // For simulation, using base64 or blob
 }
 
 export interface AppState {
