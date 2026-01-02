@@ -1,45 +1,36 @@
 name: Deploy to GitHub Pages
 
-# سيتم التنفيذ عند أي push على فرع main
 on:
   push:
     branches:
-      - main
+      - main  # فرعك الرئيسي
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      # 1️⃣ جلب محتويات المستودع
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      # 2️⃣ إعداد Node.js
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # 3️⃣ تثبيت التبعيات
       - name: Install dependencies
         run: npm install
 
-      # 4️⃣ بناء المشروع
       - name: Build project
         run: npm run build
 
-      # 5️⃣ عرض محتويات مجلد dist للتأكد
       - name: Check dist contents
         run: ls -R dist
 
-      # 6️⃣ إعداد هوية Git
       - name: Setup Git identity
         run: |
           git config --global user.name "Deploy Bot"
           git config --global user.email "deploy@example.com"
 
-      # 7️⃣ نشر على GitHub Pages
       - name: Deploy to GitHub Pages
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
