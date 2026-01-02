@@ -1,6 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
-import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate, Link } from 'react-router-dom';
 import { loadDB, addUser } from './db';
 import { User, AppState } from './types';
 import Navbar from './components/Navbar';
@@ -27,41 +27,37 @@ const App: React.FC = () => {
     localStorage.removeItem('edufiles_user');
   };
 
+  // Sync DB on changes
   useEffect(() => {
     const interval = setInterval(() => {
       setDb(loadDB());
-    }, 1500);
+    }, 2000);
     return () => clearInterval(interval);
   }, []);
 
   return (
     <HashRouter>
-      <div className="min-h-screen flex flex-col">
+      <div className="min-h-screen bg-gray-50 pb-20">
         <Navbar user={user} onLogout={handleLogout} />
         
-        <main className="flex-grow">
-          <Routes>
-            <Route path="/" element={<Home faculties={db.faculties} isLoggedIn={!!user} />} />
-            <Route path="/login" element={<Login onLogin={handleLogin} users={db.users} />} />
-            <Route path="/register" element={<Register onRegister={(u) => { addUser(u); handleLogin(u); }} users={db.users} />} />
-            
-            <Route path="/faculty/:facultyId" element={<Browsing isLoggedIn={!!user} />} />
-            <Route path="/faculty/:facultyId/major/:majorId" element={<Browsing isLoggedIn={!!user} />} />
-            <Route path="/faculty/:facultyId/major/:majorId/subject/:subjectId" element={<Browsing isLoggedIn={!!user} />} />
+        <Routes>
+          <Route path="/" element={<Home faculties={db.faculties} isLoggedIn={!!user} />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} users={db.users} />} />
+          <Route path="/register" element={<Register onRegister={(u) => { addUser(u); handleLogin(u); }} users={db.users} />} />
+          
+          <Route path="/faculty/:facultyId" element={<Browsing isLoggedIn={!!user} />} />
+          <Route path="/faculty/:facultyId/major/:majorId" element={<Browsing isLoggedIn={!!user} />} />
+          <Route path="/faculty/:facultyId/major/:majorId/subject/:subjectId" element={<Browsing isLoggedIn={!!user} />} />
 
-            <Route 
-              path="/admin" 
-              element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} 
-            />
-          </Routes>
-        </main>
+          <Route 
+            path="/admin" 
+            element={user?.role === 'admin' ? <AdminDashboard /> : <Navigate to="/" />} 
+          />
+        </Routes>
 
-        <footer className="bg-white border-t border-gray-100 py-10 mt-20">
-          <div className="max-w-7xl mx-auto px-4 text-center">
-            <p className="text-gray-400 text-sm font-medium">
-              © 2024 إيدو فايلز - منصة الملفات الدراسية. جميع الحقوق محفوظة.
-            </p>
-          </div>
+        {/* Footer */}
+        <footer className="mt-auto border-t border-gray-200 py-8 bg-white text-center">
+          <p className="text-gray-500 text-sm">© 2024 إيدو فايلز - منصة الملفات الدراسية. جميع الحقوق محفوظة.</p>
         </footer>
       </div>
     </HashRouter>
