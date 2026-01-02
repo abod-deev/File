@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main
+      - main  # فرعك الرئيسي
 
 jobs:
   deploy:
@@ -19,13 +19,13 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Build project
+      - name: Build
         run: npm run build
 
       - name: Setup Git identity
         run: |
-          git config --global user.name "Deploy Bot"
-          git config --global user.email "deploy@example.com"
+          git config --global user.name "abod-deev"
+          git config --global user.email "abod-deev@gmil.com"
 
       - name: Deploy to GitHub Pages
         env:
